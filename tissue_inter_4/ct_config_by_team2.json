@@ -1,0 +1,183 @@
+{
+  "1_source_team": {
+    "kvp": 120.0,
+    "tube_current_ma": 200.0,
+    "ma_min": 60.0,
+    "ma_max": 660.0,
+    "exposure_time_s": 1.0,
+    "total_mas": 200.0,
+    "focal_spot_mm": 0.7,
+    "bowtie_filter": "body",
+    "target_material": "tungsten",
+    "anode_angle_deg": 7.0,
+    "_used_by": ["source_team", "interaction_team"],
+    "tcm_enabled": true,
+    "tcm_modulation_depth": 0.25,
+    "tcm_phase_deg": 0.0,
+    "tcm_profile_ma_sample": [200.0, 200.87, 201.74]
+  },
+  "2_interaction_team": {
+    "kvp": 120.0,
+    "tube_current_ma": 200.0,
+    "tcm_enabled": true,
+    "target_material": "tungsten",
+    "note": "Combine with a phantom/material attenuation table (e.g. NIST XCOM) for photoelectric / Compton / Rayleigh interaction modeling."
+  },
+  "3_detector_team": {
+    "detector_rows": 64,
+    "detector_channels": 888,
+    "detector_element_width_mm": 0.625,
+    "detector_element_height_mm": 0.625,
+    "detector_width_mm": 555.0,
+    "detector_height_mm": 40.0,
+    "detector_type": "energy_integrating",
+    "detector_material": "scintillator_photodiode",
+    "collimation_mm": 40.0,
+    "_used_by": ["detector_team", "projection_team"]
+  },
+  "4_system_config_team": {
+    "scan_geometry": "helical",
+    "sid_mm": 541.0,
+    "sdd_mm": 949.0,
+    "magnification": 1.754,
+    "bore_diameter_mm": 820.0,
+    "display_fov_mm": 500.0,
+    "_used_by": ["system_config_team", "projection_team"],
+    "rotation_time_s": 0.28,
+    "rotation_angle_deg": 360.0,
+    "num_views_per_rotation": 60,
+    "angle_increment_deg": 0.365854,
+    "pitch": 0.516,
+    "table_feed_per_rotation_mm": 20.64,
+    "table_speed_mm_s": 73.7,
+    "scan_range_mm": 350.0,
+    "total_scan_time_s": 4.75,
+    "num_rotations": 10,
+    "total_views": 600
+  },
+  "5_projection_team": {
+    "geometry": {
+      "scan_geometry": "helical",
+      "sid_mm": 541.0,
+      "sdd_mm": 949.0,
+      "magnification": 1.754,
+      "bore_diameter_mm": 820.0,
+      "display_fov_mm": 500.0,
+      "_used_by": [
+        "source_team",
+        "detector_team",
+        "projection_team",
+        "reconstruction_team"
+      ]
+    },
+    "detector": {
+      "detector_rows": 64,
+      "detector_channels": 888,
+      "detector_element_width_mm": 0.625,
+      "detector_element_height_mm": 0.625,
+      "detector_width_mm": 555.0,
+      "detector_height_mm": 40.0,
+      "detector_type": "energy_integrating",
+      "detector_material": "scintillator_photodiode",
+      "collimation_mm": 40.0,
+      "_used_by": ["detector_team", "projection_team"]
+    },
+    "rotation": {
+      "rotation_time_s": 0.28,
+      "rotation_angle_deg": 360.0,
+      "num_views_per_rotation": 60,
+      "angle_increment_deg": 0.365854,
+      "_used_by": ["projection_team", "system_config_team"]
+    },
+    "helical_motion": {
+      "pitch": 0.516,
+      "table_feed_per_rotation_mm": 20.64,
+      "table_speed_mm_s": 73.7,
+      "scan_range_mm": 350.0,
+      "total_scan_time_s": 4.75,
+      "num_rotations": 10,
+      "total_views": 600,
+      "_used_by": ["system_config_team", "projection_team"]
+    },
+    "source_positions_fn": "CTConfiguration.source_positions()",
+    "view_angles_fn": "CTConfiguration.view_angles_deg()"
+  },
+  "6_reconstruction_team": {
+    "anatomy": "chest",
+    "breath_hold_required_s": 5,
+    "reconstruction_slice_thickness_mm": 2.5,
+    "reconstruction_interval_mm": 1.25,
+    "reconstruction_kernel": "standard_soft",
+    "window_width_hu": 400,
+    "window_level_hu": 50,
+    "_used_by": [
+      "reconstruction_team",
+      "post_processing_team",
+      "validation_team"
+    ],
+    "detector_rows": 64,
+    "detector_channels": 888,
+    "pitch": 0.516,
+    "total_views":600
+  },
+  "7a_postprocessing_team": {
+    "anatomy": "chest",
+    "breath_hold_required_s": 5,
+    "reconstruction_slice_thickness_mm": 2.5,
+    "reconstruction_interval_mm": 1.25,
+    "reconstruction_kernel": "standard_soft",
+    "window_width_hu": 400,
+    "window_level_hu": 50,
+    "_used_by": [
+      "reconstruction_team",
+      "post_processing_team",
+      "validation_team"
+    ]
+  },
+  "7b_validation_team": {
+    "confidence_key": {
+      "confirmed_ge_published_spec": [
+        "kvp",
+        "ma_min",
+        "ma_max",
+        "bore_diameter_mm",
+        "rotation_time_s",
+        "pitch",
+        "detector_rows",
+        "detector_element_width_mm",
+        "detector_element_height_mm"
+      ],
+      "typical_clinical_protocol_value_not_vendor_exclusive": [
+        "scan_range_mm",
+        "reconstruction_slice_thickness_mm",
+        "reconstruction_interval_mm",
+        "reconstruction_kernel",
+        "breath_hold_required_s"
+      ],
+      "derived_computed_from_other_fields": [
+        "angle_increment_deg",
+        "table_speed_mm_s",
+        "total_scan_time_s",
+        "num_rotations",
+        "total_views",
+        "magnification"
+      ],
+      "representative_approximation_not_officially_disclosed": [
+        "sid_mm",
+        "sdd_mm",
+        "detector_channels",
+        "num_views_per_rotation",
+        "focal_spot_mm",
+        "anode_angle_deg"
+      ]
+    },
+    "metadata": {
+      "config_name": "GE_Revolution_RT_reference_chest_protocol",
+      "reference_vendor": "GE HealthCare (Revolution RT / Discovery CT750 HD - representative values)",
+      "anatomy": "chest",
+      "notes": "Values are a mix of published GE specs, common clinical protocol values, and representative geometry used in open CT-simulation toolkits (e.g. XCIST/CatSim). See confidence_key at bottom of this file before using any single field as ground truth.",
+      "owning_team": "CT Configuration Team",
+      "version": "1.0"
+    }
+  }
+}
