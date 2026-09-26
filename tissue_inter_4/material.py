@@ -74,6 +74,9 @@ def get_material_info(material_id):
     """
     Returns material information.
     """
+    # used in-- 
+    #   1. mass_attenutaion_coefficient()
+    #   2. material_density()
 
     if material_id not in MATERIALS:
         raise ValueError(
@@ -103,11 +106,20 @@ def mass_attenuation_coefficient(
     material = get_material_info(
         material_id
     )
+    print(f"\nMaterial encountered: {material["name"]}; NIST name: {material["nist_name"]}")
 
+    
+    # return mass attenuation coefficient
+    ## ????????????????????????????????? checkpoint ???????????????????????????????? 
+    
     value = xraylib.CS_Total_CP(
         material["nist_name"],
         float(energy_keV)
     )
+    # getting the value as 3606, 1190  -- NEED TO CHECK ENERGY and decide if it's true
+    # energy(keV)  :    2,  2.5,   3, ... 50
+    
+    # value(cm^2/g) : 527,  277 , 162, ... 0.2
 
     return value
 
@@ -122,12 +134,15 @@ def material_density(material_id):
 
     Units:
         g / cm^3
+        
+    Role: Usefule in calculating linear attenuation coefficient by multiplying with mass attenuation coefficient
     """
 
     material = get_material_info(
         material_id
     )
 
+    # get density by usnig material_id , units: g/cm^3 @ 20deg C and std Pressure (tested for Air)
     data = xraylib.GetCompoundDataNISTByName(
         material["nist_name"]
     )
@@ -168,8 +183,10 @@ def linear_attenuation_coefficient(
         material_id
     )
 
+    # calculating --> linear_att_coef = mass_att_coef * density
     mu_cm = mu_over_rho * rho
 
+    ## cm^-1  --> mm^-1 conversion
     mu_mm = mu_cm / 10.0
 
     return mu_mm
