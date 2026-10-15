@@ -1,4 +1,4 @@
-2# CT Simulation: Structured Integration
+# CT Simulation: Structured Integration
 
 A Python-based, phase-1 CT simulation pipeline that connects an X-ray source model, voxel-based tissue attenuation, an approximate scatter stage, and an energy-integrating detector. The project is organized into separate modules so each stage can be inspected and developed independently.
 
